@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mecánica Integral | Taller Mecánico en Querétaro</title>
+  <meta name="description" content="Taller mecánico en Santiago de Querétaro. Servicio honesto, garantía por escrito. Frenos, afinaciones, suspensión, diagnóstico computarizado y más." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Variables ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:    #d62828;
+      --red-dk: #a01f1f;
+      --dark:   #0f0f0f;
+      --gray:   #1a1a1a;
+      --mid:    #2a2a2a;
+      --light:  #f5f5f5;
+      --muted:  #999;
+      --white:  #ffffff;
+      --wa:     #25D366;
+      --radius: 12px;
+      --shadow: 0 4px 24px rgba(0,0,0,.35);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ── Navbar ────────────────────────────────────────────────── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15,15,15,.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #222;
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: auto;
+      padding: 0 1.5rem;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: -.5px;
+    }
+
+    .logo-icon {
+      width: 42px;
+      height: 42px;
+      background: var(--red);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .logo-icon svg { width: 26px; height: 26px; fill: white; }
+
+    .logo span { color: var(--red); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: .9rem;
+      font-weight: 500;
+      color: #ccc;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover { color: var(--red); }
+
+    .nav-cta {
+      background: var(--red);
+      color: white !important;
+      padding: .5rem 1.1rem;
+      border-radius: 8px;
+      font-weight: 600 !important;
+      transition: background .2s !important;
+    }
+
+    .nav-cta:hover { background: var(--red-dk) !important; color: white !important; }
+
+    /* Hamburger */
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+
+    .burger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: white;
+      border-radius: 2px;
+      transition: .3s;
+    }
+
+    /* ── Hero ──────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(214,40,40,.15) 0%, transparent 60%),
+        linear-gradient(to bottom, rgba(0,0,0,.65) 0%, rgba(0,0,0,.3) 60%, rgba(0,0,0,.8) 100%),
+        url('https://images.unsplash.com/photo-1625047509168-a7026f36de04?w=1600&q=80') center/cover no-repeat;
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 1200px;
+      margin: auto;
+      padding: 6rem 1.5rem 4rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(214,40,40,.15);
+      border: 1px solid rgba(214,40,40,.4);
+      color: #f87171;
+      padding: .4rem 1rem;
+      border-radius: 999px;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--red);
+      border-radius: 50%;
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+      0%,100% { opacity: 1; }
+      50% { opacity: .3; }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -1.5px;
+      max-width: 700px;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--red);
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: #ccc;
+      max-width: 540px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: white;
+      padding: .85rem 2rem;
+      border-radius: var(--radius);
+      font-weight: 700;
+      font-size: 1rem;
+      transition: background .2s, transform .2s;
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+    }
+
+    .btn-primary:hover { background: var(--red-dk); transform: translateY(-2px); }
+
+    .btn-outline {
+      background: transparent;
+      color: white;
+      padding: .85rem 2rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 1rem;
+      border: 1.5px solid rgba(255,255,255,.3);
+      transition: border-color .2s, transform .2s;
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+    }
+
+    .btn-outline:hover { border-color: white; transform: translateY(-2px); }
+
+    .hero-stats {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px,1fr));
+      gap: 1rem;
+      transform: translateY(50%);
+    }
+
+    .stat-card {
+      background: var(--gray);
+      border: 1px solid #2e2e2e;
+      border-radius: var(--radius);
+      padding: 1.25rem 1rem;
+      text-align: center;
+    }
+
+    .stat-card .num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--red);
+      line-height: 1;
+    }
+
+    .stat-card .label {
+      font-size: .78rem;
+      color: var(--muted);
+      margin-top: .25rem;
+    }
+
+    /* ── Section commons ───────────────────────────────────────── */
+    section { padding: 6rem 1.5rem; }
+
+    .container { max-width: 1200px; margin: auto; }
+
+    .section-header { text-align: center; margin-bottom: 3rem; }
+
+    .section-tag {
+      display: inline-block;
+      color: var(--red);
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: .75rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -.5px;
+      line-height: 1.15;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      max-width: 560px;
+      margin: .75rem auto 0;
+      font-size: 1rem;
+    }
+
+    /* ── Services ──────────────────────────────────────────────── */
+    #servicios { background: var(--gray); padding-top: 8rem; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .service-card {
+      background: var(--mid);
+      border: 1px solid #333;
+      border-radius: var(--radius);
+      padding: 1.75rem 1.5rem;
+      transition: border-color .25s, transform .25s, box-shadow .25s;
+      cursor: default;
+    }
+
+    .service-card:hover {
+      border-color: var(--red);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      background: rgba(214,40,40,.12);
+      border: 1px solid rgba(214,40,40,.25);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 1.1rem;
+      font-size: 1.5rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: .5rem;
+    }
+
+    .service-card p {
+      font-size: .875rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* ── Why us ────────────────────────────────────────────────── */
+    #nosotros { background: var(--dark); }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .why-img {
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .why-img img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      filter: brightness(.85);
+    }
+
+    .why-img .overlay-tag {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      background: var(--red);
+      color: white;
+      padding: .6rem 1.1rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: .9rem;
+    }
+
+    .why-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .why-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .why-item-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(214,40,40,.12);
+      border: 1px solid rgba(214,40,40,.25);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .why-item-text h4 { font-size: .95rem; font-weight: 700; margin-bottom: .25rem; }
+    .why-item-text p { font-size: .85rem; color: var(--muted); }
+
+    /* ── FAQ ───────────────────────────────────────────────────── */
+    #faq { background: var(--gray); }
+
+    .faq-list {
+      max-width: 780px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+    }
+
+    .faq-item {
+      background: var(--mid);
+      border: 1px solid #333;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      color: white;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      text-align: left;
+      padding: 1.2rem 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      transition: color .2s;
+    }
+
+    .faq-q:hover { color: #f87171; }
+
+    .faq-arrow {
+      width: 28px;
+      height: 28px;
+      background: rgba(214,40,40,.12);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      transition: transform .3s, background .2s;
+    }
+
+    .faq-item.open .faq-arrow {
+      transform: rotate(180deg);
+      background: var(--red);
+    }
+
+    .faq-arrow svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2.5; }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease, padding .35s ease;
+      padding: 0 1.5rem;
+      color: #aaa;
+      font-size: .9rem;
+      line-height: 1.65;
+    }
+
+    .faq-item.open .faq-a {
+      max-height: 400px;
+      padding: 0 1.5rem 1.2rem;
+    }
+
+    /* ── Contact / Location ────────────────────────────────────── */
+    #contacto { background: var(--dark); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .contact-card {
+      background: var(--gray);
+      border: 1px solid #2e2e2e;
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .contact-card-icon {
+      width: 46px;
+      height: 46px;
+      background: rgba(214,40,40,.12);
+      border: 1px solid rgba(214,40,40,.25);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .contact-card h4 { font-size: .8rem; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: .5px; }
+    .contact-card p { font-size: .95rem; font-weight: 600; margin-top: .15rem; }
+    .contact-card small { font-size: .8rem; color: var(--muted); }
+
+    .map-wrap {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid #2e2e2e;
+      height: 380px;
+    }
+
+    .map-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      filter: grayscale(20%) contrast(1.05);
+    }
+
+    /* ── WhatsApp floating button ──────────────────────────────── */
+    .wa-float {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 999;
+      width: 62px;
+      height: 62px;
+      background: var(--wa);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,.45);
+      transition: transform .25s, box-shadow .25s;
+      animation: wa-bounce 2s ease-in-out infinite;
+    }
+
+    .wa-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 28px rgba(37,211,102,.6);
+      animation: none;
+    }
+
+    .wa-float svg { width: 32px; height: 32px; fill: white; }
+
+    @keyframes wa-bounce {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .wa-tooltip {
+      position: fixed;
+      bottom: 2rem;
+      right: 5.5rem;
+      z-index: 998;
+      background: var(--wa);
+      color: white;
+      padding: .55rem 1rem;
+      border-radius: 8px;
+      font-size: .85rem;
+      font-weight: 600;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(10px);
+      transition: opacity .3s, transform .3s;
+      pointer-events: none;
+    }
+
+    .wa-tooltip::after {
+      content: '';
+      position: absolute;
+      right: -7px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 7px solid transparent;
+      border-right: none;
+      border-left-color: var(--wa);
+    }
+
+    .wa-float:hover ~ .wa-tooltip,
+    .wa-tooltip:hover {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ── Footer ────────────────────────────────────────────────── */
+    footer {
+      background: #080808;
+      border-top: 1px solid #1e1e1e;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: .85rem;
+    }
+
+    footer strong { color: var(--red); }
+
+    /* ── Mobile ────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; gap: 1rem; position: absolute; top: 68px; left: 0; right: 0; background: var(--dark); border-bottom: 1px solid #222; padding: 1.5rem; }
+      .nav-links.open { display: flex; }
+      .burger { display: flex; }
+      .hero-stats { transform: none; margin-top: 2rem; }
+      #servicios { padding-top: 5rem; }
+      .why-grid, .contact-grid { grid-template-columns: 1fr; }
+      .why-img { order: -1; }
+      .map-wrap { height: 260px; }
+      .wa-tooltip { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══════════════════════════════════════════════════ -->
+<header>
+  <nav>
+    <a href="#" class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+        </svg>
+      </div>
+      Mecánica <span>Integral</span>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#faq">Preguntas</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+      <li><a href="https://wa.me/524421234567?text=Hola%2C%20me%20gustar%C3%ADa%20hacer%20una%20cita%20en%20Mec%C3%A1nica%20Integral" target="_blank" class="nav-cta">Agendar cita</a></li>
+    </ul>
+
+    <button class="burger" id="burger" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<!-- ══ HERO ════════════════════════════════════════════════════ -->
+<section class="hero" id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="badge">Taller en Querétaro</div>
+    <h1>Tu auto en manos <em>expertas</em></h1>
+    <p>Diagnóstico honesto, calidad garantizada por escrito y técnicos certificados. Más de 10 años cuidando vehículos en el Romerillal, Querétaro.</p>
+    <div class="hero-btns">
+      <a href="https://wa.me/524421234567?text=Hola%2C%20me%20gustar%C3%ADa%20hacer%20una%20cita%20en%20Mec%C3%A1nica%20Integral" target="_blank" class="btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.334.101 11.893c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652c1.746.943 3.71 1.444 5.71 1.444h.005c6.585 0 11.946-5.336 11.949-11.896 0-3.176-1.24-6.165-3.479-8.407zm-8.475 18.304h-.004c-1.776 0-3.518-.477-5.034-1.378l-.362-.214-3.75.977.999-3.645-.237-.374C2.69 15.25 2.11 13.594 2.11 11.893c.002-5.516 4.525-10.003 10.089-10.003 2.694 0 5.228 1.044 7.134 2.941a9.962 9.962 0 012.957 7.072c-.003 5.515-4.526 10.004-10.044 10.004zm5.525-7.494c-.303-.151-1.794-.882-2.072-.982-.278-.101-.48-.151-.683.151-.203.302-.785.982-.961 1.183-.177.202-.354.226-.656.075-.303-.151-1.277-.469-2.432-1.496-.9-.8-1.507-1.787-1.685-2.089-.177-.302-.019-.465.133-.615.136-.135.303-.352.454-.528.151-.176.202-.302.302-.503.101-.202.05-.378-.026-.529-.075-.151-.683-1.645-.936-2.252-.246-.591-.496-.511-.683-.521l-.582-.01c-.202 0-.529.075-.806.378-.278.302-1.06 1.033-1.06 2.52 0 1.488 1.085 2.924 1.236 3.126.151.202 2.135 3.26 5.173 4.572.723.311 1.287.497 1.727.636.725.23 1.385.197 1.907.12.582-.087 1.794-.732 2.047-1.44.253-.709.253-1.316.177-1.44-.074-.126-.277-.202-.58-.353z"/></svg>
+        Enviar WhatsApp
+      </a>
+      <a href="#servicios" class="btn-outline">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+        Ver servicios
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-card"><div class="num">+10</div><div class="label">Años de experiencia</div></div>
+    <div class="stat-card"><div class="num">+500</div><div class="label">Clientes atendidos</div></div>
+    <div class="stat-card"><div class="num">100%</div><div class="label">Garantía por escrito</div></div>
+    <div class="stat-card"><div class="num">Todas</div><div class="label">Marcas y modelos</div></div>
+  </div>
+</section>
+
+<!-- ══ SERVICIOS ════════════════════════════════════════════════ -->
+<section id="servicios">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Lo que hacemos</span>
+      <h2>Nuestros servicios</h2>
+      <p>Atendemos todo tipo de vehículos con refacciones de calidad y técnicos certificados.</p>
+    </div>
+
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon">🔧</div>
+        <h3>Afinación mayor y menor</h3>
+        <p>Bujías, filtros, cables de alta tensión, sincronización del motor. Restauramos el rendimiento y consumo óptimo de tu vehículo.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🛞</div>
+        <h3>Frenos y balatas</h3>
+        <p>Revisión y cambio de balatas, discos, tambores y líquido de frenos. Seguridad garantizada en cada frenado.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🛢️</div>
+        <h3>Cambio de aceite</h3>
+        <p>Aceites minerales, semisintéticos y full sintético. Incluye revisión de 21 puntos sin costo adicional.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">💻</div>
+        <h3>Diagnóstico computarizado</h3>
+        <p>Escáner multimarca para leer y borrar fallas del motor, transmisión, ABS, airbags y más sistemas electrónicos.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🌡️</div>
+        <h3>Sistema de enfriamiento</h3>
+        <p>Cambio de anticongelante, termostato, bomba de agua, mangueras y radiador. Evitamos recalentamientos.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">⚙️</div>
+        <h3>Suspensión y dirección</h3>
+        <p>Reparación de amortiguadores, rotulas, terminales, cremallera y dirección hidráulica o eléctrica.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🔩</div>
+        <h3>Transmisión y clutch</h3>
+        <p>Servicio de transmisión automática y estándar. Cambio de clutch y verificación de todo el tren motriz.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">⚡</div>
+        <h3>Sistema eléctrico</h3>
+        <p>Alternador, marcha, batería, fusibles y cableado. Diagnóstico eléctrico especializado sin desmantelar innecesariamente.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🔄</div>
+        <h3>Alineación y balanceo</h3>
+        <p>Alineación computarizada 3D y balanceo dinámico. Prolongamos la vida útil de tus neumáticos.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🧴</div>
+        <h3>Líquidos y fluidos</h3>
+        <p>Cambio de líquido de transmisión, diferencial, dirección hidráulica y líquido de frenos con los estándares del fabricante.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🔋</div>
+        <h3>Baterías</h3>
+        <p>Venta e instalación de baterías para toda clase de vehículos. Prueba de carga sin costo.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🏭</div>
+        <h3>Servicio de motor</h3>
+        <p>Rectificación de cabeza, cambio de juntas, empaquetadura y trabajos mayores de motor con garantía extendida.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ POR QUÉ NOSOTROS ════════════════════════════════════════ -->
+<section id="nosotros">
+  <div class="container">
+    <div class="why-grid">
+      <div class="why-img">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Mecánicos trabajando en el taller" />
+        <div class="overlay-tag">Taller certificado ✓</div>
+      </div>
+      <div>
+        <div class="section-header" style="text-align:left; margin-bottom:2rem;">
+          <span class="section-tag">¿Por qué elegirnos?</span>
+          <h2>Honestidad y calidad en cada servicio</h2>
+        </div>
+        <div class="why-list">
+          <div class="why-item">
+            <div class="why-item-icon">📋</div>
+            <div class="why-item-text">
+              <h4>Diagnóstico previo sin costo</h4>
+              <p>Antes de cualquier trabajo te explicamos qué tiene tu vehículo y cuánto costará. Sin sorpresas.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-item-icon">✅</div>
+            <div class="why-item-text">
+              <h4>Garantía por escrito</h4>
+              <p>Todos nuestros servicios tienen garantía documentada. Si algo falla, lo resolvemos sin cobro adicional.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-item-icon">🔑</div>
+            <div class="why-item-text">
+              <h4>Refacciones originales o equivalentes</h4>
+              <p>Solo usamos piezas de calidad comprobada. Te mostramos las refacciones antes de instalarlas.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-item-icon">🚗</div>
+            <div class="why-item-text">
+              <h4>Todas las marcas</h4>
+              <p>Atendemos Nissan, Chevrolet, Ford, Volkswagen, Toyota, Honda, KIA, Mazda y más.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-item-icon">⏱️</div>
+            <div class="why-item-text">
+              <h4>Entrega puntual</h4>
+              <p>Respetamos los tiempos acordados. Si hay algún cambio, te avisamos de inmediato.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ ══════════════════════════════════════════════════════ -->
+<section id="faq">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">FAQ</span>
+      <h2>Preguntas frecuentes</h2>
+      <p>Resolvemos tus dudas más comunes antes de que vengas al taller.</p>
+    </div>
+
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          ¿Cada cuánto debo cambiar el aceite de mi auto?
+          <span class="faq-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a">
+          Depende del tipo de aceite y del fabricante. Generalmente: aceite mineral cada 5,000 km, semisintético cada 7,500 km y full sintético cada 10,000–15,000 km. Si conduces en condiciones severas (mucho tráfico, clima extremo), recomendamos acortar ese intervalo. En Mecánica Integral revisamos tu manual de propietario para darte la recomendación exacta.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          ¿Cómo sé si mis frenos necesitan cambio?
+          <span class="faq-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a">
+          Las señales más comunes son: chirrido al frenar, vibración en el pedal, pedal que cede hasta el piso, o que el auto jala hacia un lado al frenar. Si experimentas alguno de estos síntomas, visítanos de inmediato. Los frenos son el sistema de seguridad más importante de tu vehículo.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          ¿Qué significa la luz de "check engine" encendida?
+          <span class="faq-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a">
+          La luz de check engine puede indicar cientos de fallas distintas, desde un tapón de gasolina mal puesto hasta un problema en el catalizador o el sistema de inyección. No la ignores. Realizamos el diagnóstico computarizado con escáner multimarca para leer el código de falla exacto y explicarte qué necesita tu auto.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          ¿Atienden todas las marcas de autos?
+          <span class="faq-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a">
+          Sí. Atendemos todas las marcas y modelos: Nissan, Chevrolet, Ford, Volkswagen, Toyota, Honda, KIA, Mazda, Dodge, Jeep, Renault, Peugeot, Fiat y más, tanto en versiones a gasolina como diesel.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          ¿Cuánto tiempo tardan en reparar mi vehículo?
+          <span class="faq-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a">
+          Depende del servicio. Un cambio de aceite toma entre 30 y 45 minutos. Una afinación completa de 2 a 4 horas. Trabajos mayores como reparación de motor pueden tomar 2 a 5 días. Antes de comenzar cualquier trabajo te damos un tiempo estimado y te avisamos si surge algún imprevisto.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-cada="false">
+          ¿Ofrecen garantía en sus servicios?
+          <span class="faq-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a">
+          Sí, todos nuestros servicios tienen garantía por escrito. La cobertura varía según el tipo de trabajo: cambio de aceite 3 meses o 5,000 km, frenos 6 meses, reparaciones mayores hasta 12 meses. Si dentro de ese período algo no funciona correctamente, regresa y lo revisamos sin costo.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          ¿Debo hacer cita o puedo llegar sin agendar?
+          <span class="faq-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a">
+          Puedes llegar sin cita, aunque para trabajos mayores o en días de alta demanda recomendamos agendar por WhatsApp para garantizar tu espacio y que los técnicos estén preparados con las refacciones necesarias. Para servicios rápidos como cambio de aceite, generalmente no hay espera.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          ¿Qué formas de pago aceptan?
+          <span class="faq-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a">
+          Aceptamos efectivo, transferencia bancaria y tarjetas de débito. Puedes consultar por WhatsApp cualquier duda sobre costos antes de venir al taller.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACTO ══════════════════════════════════════════════════ -->
+<section id="contacto">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Encuéntranos</span>
+      <h2>Ubicación y contacto</h2>
+      <p>Estamos en El Romerillal, al norte de Santiago de Querétaro. ¡Te esperamos!</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-info">
+
+        <div class="contact-card">
+          <div class="contact-card-icon">📍</div>
+          <div>
+            <h4>Dirección</h4>
+            <p>El Romerillal, 76118</p>
+            <small>Santiago de Querétaro, Qro.</small>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-card-icon">📱</div>
+          <div>
+            <h4>WhatsApp / Teléfono</h4>
+            <p><a href="https://wa.me/524421234567" target="_blank" style="color:var(--wa)">(442) 123-4567</a></p>
+            <small>Lunes a sábado · 8:00 am – 7:00 pm</small>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-card-icon">🕐</div>
+          <div>
+            <h4>Horarios</h4>
+            <p>Lun – Vie: 8:00 am – 7:00 pm</p>
+            <small>Sábados: 9:00 am – 2:00 pm · Domingos: cerrado</small>
+          </div>
+        </div>
+
+        <a href="https://wa.me/524421234567?text=Hola%2C%20me%20gustar%C3%ADa%20hacer%20una%20cita%20en%20Mec%C3%A1nica%20Integral" target="_blank" class="btn-primary" style="justify-content:center; font-size:.95rem; padding:1rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.334.101 11.893c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652c1.746.943 3.71 1.444 5.71 1.444h.005c6.585 0 11.946-5.336 11.949-11.896 0-3.176-1.24-6.165-3.479-8.407zm-8.475 18.304h-.004c-1.776 0-3.518-.477-5.034-1.378l-.362-.214-3.75.977.999-3.645-.237-.374C2.69 15.25 2.11 13.594 2.11 11.893c.002-5.516 4.525-10.003 10.089-10.003 2.694 0 5.228 1.044 7.134 2.941a9.962 9.962 0 012.957 7.072c-.003 5.515-4.526 10.004-10.044 10.004zm5.525-7.494c-.303-.151-1.794-.882-2.072-.982-.278-.101-.48-.151-.683.151-.203.302-.785.982-.961 1.183-.177.202-.354.226-.656.075-.303-.151-1.277-.469-2.432-1.496-.9-.8-1.507-1.787-1.685-2.089-.177-.302-.019-.465.133-.615.136-.135.303-.352.454-.528.151-.176.202-.302.302-.503.101-.202.05-.378-.026-.529-.075-.151-.683-1.645-.936-2.252-.246-.591-.496-.511-.683-.521l-.582-.01c-.202 0-.529.075-.806.378-.278.302-1.06 1.033-1.06 2.52 0 1.488 1.085 2.924 1.236 3.126.151.202 2.135 3.26 5.173 4.572.723.311 1.287.497 1.727.636.725.23 1.385.197 1.907.12.582-.087 1.794-.732 2.047-1.44.253-.709.253-1.316.177-1.44-.074-.126-.277-.202-.58-.353z"/></svg>
+          Escribirnos por WhatsApp
+        </a>
+
+      </div>
+
+      <div class="map-wrap">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3734.2!2d-100.4044!3d20.6752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d35b07e79b4b8d%3A0x0!2sEl%20Romerillal%2C%2076118%20Santiago%20de%20Quer%C3%A9taro%2C%20Qro.!5e0!3m2!1ses!2smx!4v1680000000000!5m2!1ses!2smx"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Ubicación Mecánica Integral - El Romerillal, Querétaro">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══════════════════════════════════════════════════ -->
+<footer>
+  <p>© 2024 <strong>Mecánica Integral</strong> · El Romerillal, Santiago de Querétaro, Qro. 76118 · Todos los derechos reservados.</p>
+</footer>
+
+<!-- ══ WHATSAPP FLOATING ════════════════════════════════════════ -->
+<a class="wa-float" href="https://wa.me/524421234567?text=Hola%2C%20me%20gustar%C3%ADa%20hacer%20una%20cita%20en%20Mec%C3%A1nica%20Integral" target="_blank" aria-label="Enviar WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.334.101 11.893c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652c1.746.943 3.71 1.444 5.71 1.444h.005c6.585 0 11.946-5.336 11.949-11.896 0-3.176-1.24-6.165-3.479-8.407zm-8.475 18.304h-.004c-1.776 0-3.518-.477-5.034-1.378l-.362-.214-3.75.977.999-3.645-.237-.374C2.69 15.25 2.11 13.594 2.11 11.893c.002-5.516 4.525-10.003 10.089-10.003 2.694 0 5.228 1.044 7.134 2.941a9.962 9.962 0 012.957 7.072c-.003 5.515-4.526 10.004-10.044 10.004zm5.525-7.494c-.303-.151-1.794-.882-2.072-.982-.278-.101-.48-.151-.683.151-.203.302-.785.982-.961 1.183-.177.202-.354.226-.656.075-.303-.151-1.277-.469-2.432-1.496-.9-.8-1.507-1.787-1.685-2.089-.177-.302-.019-.465.133-.615.136-.135.303-.352.454-.528.151-.176.202-.302.302-.503.101-.202.05-.378-.026-.529-.075-.151-.683-1.645-.936-2.252-.246-.591-.496-.511-.683-.521l-.582-.01c-.202 0-.529.075-.806.378-.278.302-1.06 1.033-1.06 2.52 0 1.488 1.085 2.924 1.236 3.126.151.202 2.135 3.26 5.173 4.572.723.311 1.287.497 1.727.636.725.23 1.385.197 1.907.12.582-.087 1.794-.732 2.047-1.44.253-.709.253-1.316.177-1.44-.074-.126-.277-.202-.58-.353z"/>
+  </svg>
+</a>
+<div class="wa-tooltip">¡Escríbenos!</div>
+
+<!-- ══ SCRIPTS ══════════════════════════════════════════════════ -->
+<script>
+  // Hamburger menu
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+      btn.setAttribute('aria-expanded', !isOpen);
+    });
+  });
+
+  // Smooth reveal on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.service-card, .why-item, .faq-item, .contact-card, .stat-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity .5s ease, transform .5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
