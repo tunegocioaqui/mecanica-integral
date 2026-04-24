@@ -38,6 +38,52 @@
     a { color: inherit; text-decoration: none; }
     img { max-width: 100%; display: block; }
 
+    /* ── Car animation ─────────────────────────────────────────── */
+    .hero-car-track {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .hero-road-line {
+      position: absolute;
+      bottom: 18px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: repeating-linear-gradient(
+        to right,
+        rgba(255,255,255,.25) 0px,
+        rgba(255,255,255,.25) 30px,
+        transparent 30px,
+        transparent 60px
+      );
+      animation: road-move 1s linear infinite;
+    }
+
+    @keyframes road-move {
+      from { background-position: 0 0; }
+      to   { background-position: -60px 0; }
+    }
+
+    .hero-car {
+      position: absolute;
+      bottom: 6px;
+      left: -140px;
+      width: 130px;
+      animation: car-drive 8s linear infinite;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,.5));
+    }
+
+    @keyframes car-drive {
+      0%   { left: -140px; }
+      100% { left: 110%; }
+    }
+
     /* ── Navbar ────────────────────────────────────────────────── */
     header {
       position: sticky;
@@ -672,6 +718,36 @@
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
         Ver servicios
       </a>
+      <a href="https://maps.google.com/maps?q=Lateral+Mexico-Queretaro,+Balaustradas,+76070+Santiago+de+Queretaro,+Qro." target="_blank" class="btn-outline" style="border-color:rgba(255,255,255,.3)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Cómo llegar
+      </a>
+    </div>
+  </div>
+
+  <!-- Carro animado -->
+  <div class="hero-car-track">
+    <div class="hero-road-line"></div>
+    <div class="hero-car">
+      <svg viewBox="0 0 120 50" xmlns="http://www.w3.org/2000/svg">
+        <!-- Carrocería -->
+        <rect x="10" y="20" width="100" height="22" rx="4" fill="#cc2222"/>
+        <!-- Cabina -->
+        <path d="M30 20 Q35 6 55 6 L80 6 Q95 6 100 20Z" fill="#e03333"/>
+        <!-- Ventanas -->
+        <path d="M34 19 Q37 10 52 10 L68 10 L68 19Z" fill="#a8d4f0" opacity=".85"/>
+        <path d="M70 19 L70 10 L80 10 Q92 10 96 19Z" fill="#a8d4f0" opacity=".85"/>
+        <!-- Ruedas -->
+        <circle cx="30" cy="42" r="8" fill="#222"/>
+        <circle cx="30" cy="42" r="4" fill="#555"/>
+        <circle cx="88" cy="42" r="8" fill="#222"/>
+        <circle cx="88" cy="42" r="4" fill="#555"/>
+        <!-- Faros -->
+        <rect x="106" y="26" width="6" height="5" rx="2" fill="#ffe066"/>
+        <rect x="8" y="26" width="5" height="5" rx="2" fill="#ff6666" opacity=".7"/>
+        <!-- Detalle parabrisas -->
+        <line x1="69" y1="9" x2="69" y2="19" stroke="#7bbbd4" stroke-width="1"/>
+      </svg>
     </div>
   </div>
 
